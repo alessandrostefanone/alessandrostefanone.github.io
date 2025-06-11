@@ -3,18 +3,43 @@ interface Props {
   listTitle: string;
   listItems: {
     title: string;
-    description: string;
+    description: string[] | string; // Accept both array and string
+    link: string;
+    image: string;
   }[];
 }
-const {listTitle, listItems} = Astro.props
+
+const { listTitle, listItems } = Astro.props;
+
+// Normalize descriptions to always be an array
+const normalizedItems = listItems.map(item => ({
+  ...item,
+  description: Array.isArray(item.description) 
+    ? item.description 
+    : [item.description]
+}));
 ---
 <h2 class="text-2xl font-bold mb-6">{listTitle}</h2>
 <div class="grid gap-6 mb-12">
   {
-    listItems.map((item) => (
+    normalizedItems.map((item) => (
       <div class="p-6 bg-base-200 rounded-xl text-base-content">
-        <h3 class="text-xl font-semibold mb-3">{item.title}</h3>
-        <p>{item.description}</p>
+        <h3 class="text-xl font-semibold mb-3">
+          <a href={item.link} class="hover:underline">{item.title}</a>
+        </h3>
+        <ul class="list-disc list-inside mb-3">
+          {item.description.map((desc) => (
+            <li>{desc}</li>
+          ))}
+        </ul>
+        {item.image && (
+          <img 
+            src={item.image} 
+            alt={item.title} 
+            class="mt-4 rounded-lg w-full object-cover" 
+            loading="lazy"
+          />
+        )}
       </div>
     ))
   }

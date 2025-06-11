@@ -3,7 +3,7 @@ export interface Experience {
   time: string;
   title: string;
   location?: string;
-  description?: string;
+  description?: string[];
 }
 
 export interface Education {
@@ -26,6 +26,13 @@ export interface Publication {
   time: string;
   link?: string;
   abstract?: string;
+}
+
+export interface Award {
+  title: string;
+  organization: string;
+  date: string;
+  description: [string];
 }
 
 export function isExperience(element: Experience | Education): element is Experience {

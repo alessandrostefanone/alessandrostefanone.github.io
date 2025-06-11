@@ -1,13 +1,16 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { profile } from "@/settings";
 import { publications } from "@/data/cv";
 import { highlightAuthor } from "@/lib/utils";
 import {template} from "@/settings";
 
+const { fullName } = profile;
+
 const ALL_PAPERS = publications; // This will be replaced with dynamic data later
 ---
 
-<Layout title="Papers">
+<Layout title= {fullName}>
   <div class="prose max-w-none">
     <h1 class="text-3xl font-bold mb-8">Publications</h1>
 
@@ -42,11 +45,13 @@ const ALL_PAPERS = publications; // This will be replaced with dynamic data late
 
     <div class="flex justify-center mt-8">
       <div class="join">
-        <button class="join-item btn btn-sm">«</button>
-        <button class="join-item btn btn-sm">1</button>
-        <button class="join-item btn btn-sm btn-active">2</button>
-        <button class="join-item btn btn-sm">3</button>
-        <button class="join-item btn btn-sm">»</button>
+        <button class="join-item btn btn-sm" disabled>«</button>
+        {
+          Array.from({ length: Math.ceil(ALL_PAPERS.length / 10) }, (_, i) => (
+        <button class="join-item btn btn-sm">{i + 1}</button>
+          ))
+        }
+        <button class="join-item btn btn-sm" disabled>»</button>
       </div>
     </div>
   </div>
