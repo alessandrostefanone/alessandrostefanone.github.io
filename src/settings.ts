@@ -31,7 +31,7 @@ export const template = {
 	darkTheme: 'night', // Select one of the Daisy UI Themes or create your own
 	excerptLength: 200,
 	postPerPage: 5,
-    base: '/alessandrostefanone.github.io' // Repository name starting with /
+    base: '' // Repository name starting with /
 }
 
 export const seo = {
