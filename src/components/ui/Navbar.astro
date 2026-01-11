@@ -6,6 +6,7 @@ import ProfilePictures from '@/assets/AS_photo.jpg'
 import { getCollection } from 'astro:content'
 import { template } from '@/settings'
 
+//const isBlogPopulated = false // Blog page hidden until content is ready
 const isBlogPopulated = await getCollection('blog').then(collection => collection.length > 0)
 
 const {fullName, title} = profile
@@ -29,7 +30,7 @@ const {fullName, title} = profile
                         <a href=`${template.base}/` class='text-lg'>Home</a>
 					</li>
 					<li>
-                        <a href=`${template.base}/papers` class='text-lg'>Papers</a>
+                        <a href=`${template.base}/publications` class='text-lg'>Publications</a>
 					</li>
 					<li>
                         <a href=`${template.base}/cv` class='text-lg'>CV</a>

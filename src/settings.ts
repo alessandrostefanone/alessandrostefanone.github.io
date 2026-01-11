@@ -37,5 +37,5 @@ export const template = {
 export const seo = {
 	default_title: 'Alessandro Stefanone',
 	default_description: 'Alessandro Stefanone - Ph.D. Candidate in Mechanical Engineering at Politecnico di Milano',
-	default_image: '/images/astro-academia.png',
+	default_image: '/src/assets/AS_photo.jpg',
 }
