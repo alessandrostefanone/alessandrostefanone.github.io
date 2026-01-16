@@ -35,9 +35,10 @@ const { elements, colored } = Astro.props
 				>
 					<time class='font-mono italic'>{element.time}</time>
 					<div class='text-lg font-black'>{isExperience(element) ? element.title : element.degree}</div>
-					<div>{element.description}</div>
 					<div class='font-bold'>{isExperience(element) ? element.company : element.school}</div>
 					<div class='font italic'>{element.location}</div>
+					<div>{element.description}</div>
+
 				</div>
         <hr class:list={[{ 'bg-purple-5000': colored }]} />
 			</li>

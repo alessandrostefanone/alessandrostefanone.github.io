@@ -5,7 +5,6 @@ interface Props {
 	description: string
 	image: string
 }
-
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
 const { title, description, image } = Astro.props
@@ -17,7 +16,7 @@ const { title, description, image } = Astro.props
 <meta name='generator' content={Astro.generator} />
 
 <!-- Sitemap -->
-<link rel="sitemap" href=`${template.base}/sitemap-index.xml` />
+<link rel="sitemap" href={`${template.base || ''}/sitemap-index.xml`} />
 
 <!-- Canonical URL -->
 <link rel='canonical' href={canonicalURL} />
@@ -42,10 +41,11 @@ const { title, description, image } = Astro.props
 <meta property='twitter:image' content={new URL(image, Astro.url)} />
 
 <!-- Theme selector scripts -->
-<script is:inline>
+<script>
+  import { defaultTheme } from '@/settings';
   // Get stored theme or default to light
   const getStoredTheme = () => {
-    return localStorage.getItem('theme') || 'winter';
+    return localStorage.getItem('theme') || defaultTheme;
   }
 
   // Apply theme immediately to prevent flash
@@ -64,6 +64,6 @@ const { title, description, image } = Astro.props
 
   // Re-initialize after Astro view transitions
   document.addEventListener('astro:after-swap', () => {
-    themeChange(false); // false = don't persist to localStorage
+    themeChange(true); // false = don't persist to localStorage
   });
 </script>
