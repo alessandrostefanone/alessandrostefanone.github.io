@@ -1,22 +1,23 @@
 ---
-import {template} from '@/settings'
+import { template } from '@/settings'
+
 interface Props {
 	title: string
 	description: string
 	image: string
 }
-const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const { title, description, image } = Astro.props
 ---
 
 <meta charset='utf-8' />
 <meta name='viewport' content='width=device-width,initial-scale=1' />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 120%22><text x=%2210%22 y=%22100%22 font-size=%22100%22>◽</text></svg>">
+<link rel='icon' href={`${template.base || ''}/favicon.svg`} type='image/svg+xml' />
 <meta name='generator' content={Astro.generator} />
 
 <!-- Sitemap -->
-<link rel="sitemap" href={`${template.base || ''}/sitemap-index.xml`} />
+<link rel='sitemap' href={`${template.base || ''}/sitemap-index.xml`} />
 
 <!-- Canonical URL -->
 <link rel='canonical' href={canonicalURL} />
@@ -43,16 +44,14 @@ const { title, description, image } = Astro.props
 <!-- Theme selector scripts -->
 <script>
   import { defaultTheme } from '@/settings';
-  // Get stored theme or default to light
+
   const getStoredTheme = () => {
     return localStorage.getItem('theme') || defaultTheme;
   }
 
-  // Apply theme immediately to prevent flash
   const theme = getStoredTheme();
   document.documentElement.setAttribute('data-theme', theme);
 
-  // Re-apply theme after navigation
   document.addEventListener('astro:after-swap', () => {
     const currentTheme = getStoredTheme();
     document.documentElement.setAttribute('data-theme', currentTheme);
@@ -62,8 +61,7 @@ const { title, description, image } = Astro.props
 	import { themeChange } from 'theme-change'
 	themeChange()
 
-  // Re-initialize after Astro view transitions
   document.addEventListener('astro:after-swap', () => {
-    themeChange(true); // false = don't persist to localStorage
+    themeChange(true);
   });
 </script>

@@ -110,8 +110,8 @@ export const publications: Publication[] = [
       {
         type: "image",
         src: "/publications/DT_model.jpg",
-        alt: "Overview of the embedded odor recognition pipeline.",
-        caption: "Overview of the embedded odor recognition pipeline.",
+        alt: "Methodology used to implement the Digital Twin platform.",
+        caption: "Methodology used to implement the Digital Twin platform.",
       }
     ],
   },
