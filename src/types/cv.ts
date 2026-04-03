@@ -19,6 +19,15 @@ export interface Skill {
   description: string;
 }
 
+export interface PublicationMedia {
+  type: 'image' | 'video';
+  src: string;
+  alt?: string;
+  caption?: string;
+  poster?: string;
+  mimeType?: string;
+}
+
 export interface Publication {
   title: string;
   authors: string;
@@ -26,6 +35,8 @@ export interface Publication {
   time: string;
   link?: string;
   abstract?: string;
+  status?: string;
+  media?: PublicationMedia[];
 }
 
 export interface Award {

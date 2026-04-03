@@ -1,102 +1,158 @@
-# Astro Academia Documentation
+# alessandrostefanone.github.io
 
-## What is Astro Academia?
+Personal academic website for Alessandro Stefanone, built with Astro, Tailwind CSS, and DaisyUI.
 
-Astro Academia is a personal academic website built using Astro, a modern static site generator. The website is designed to showcase academic achievements, research papers, blog posts, and a CV. It is fast, responsive, and easy to maintain, making it an ideal platform for academics and researchers to present their work.
+The site includes:
 
-If you find Astro Academia useful or appreciate my work, consider supporting me! Your support helps keep this project maintained and encourages further development. 🚀✨
+- a home page with profile and recent publications
+- a publications page with optional media previews
+- a CV page with experience, education, awards, publications, and skills
 
-<a href="https://buymeacoffee.com/maiobarbero" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-yellow.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+## Tech Stack
 
-## How to use it
+- Astro 5
+- Tailwind CSS
+- DaisyUI
+- React support for Astro
 
-Fork this repository to create your new website starting from this template.
+## Local Development
 
-## How to Create a CV Using the `cv.ts` File
+Install dependencies:
 
-The `cv.ts` file located in the `src/data/` directory is used to define the structure and content of your CV. This file exports an object containing various sections of your CV, such as education, experience, publications, and more.
+```bash
+npm install
+```
 
-### Example Structure of `cv.ts`
+Start the local dev server:
 
-```typescript
-export const cv = {
-  education: [
+```bash
+npm run dev
+```
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
+
+## Main Content Files
+
+Most of the site content is managed directly from a few files:
+
+- `src/settings.ts`: profile info, social links, site metadata, theme settings
+- `src/data/cv.ts`: experiences, education, skills, publications, awards
+- `src/data/researchIcons.ts`: icons used for research areas
+
+Main pages:
+
+- `src/pages/index.astro`: home page
+- `src/pages/publications.astro`: publications page
+- `src/pages/cv.astro`: CV page
+
+## Editing Publications
+
+Publications are defined in `src/data/cv.ts`.
+
+Each publication supports fields such as:
+
+- `title`
+- `authors`
+- `journal`
+- `time`
+- `link`
+- `abstract`
+- `status`
+- `media`
+
+Example:
+
+```ts
+{
+  title: "Example Paper",
+  authors: "Author One, Author Two",
+  journal: "Journal Name",
+  time: "2026",
+  link: "https://doi.org/example",
+  abstract: "Short abstract.",
+  status: "Conference Paper",
+  media: [
     {
-      degree: "Ph.D. in Computer Science",
-      institution: "University of Example",
-      year: "2020",
-    },
-    {
-      degree: "M.Sc. in Computer Science",
-      institution: "University of Example",
-      year: "2016",
+      type: "image",
+      src: "/publications/example-image.png",
+      alt: "Example figure",
+      caption: "Example caption.",
     },
   ],
-  experience: [
-    {
-      title: "Research Scientist",
-      company: "Example Research Lab",
-      year: "2021-Present",
-    },
-    {
-      title: "Software Engineer",
-      company: "Tech Company",
-      year: "2016-2021",
-    },
-  ],
-  // Add more sections as needed
-};
+}
 ```
 
-To create or update your CV, modify the `cv.ts` file with your personal information and achievements. The CV will be automatically rendered on the CV page of your website.
+## Publication Media
 
-## How to Use the `settings.ts` File
+Media for publications is currently served from the `public/publications/` folder.
 
-The `settings.ts` file located in the `src/` directory is used to configure various settings for your Astro Academia website. This file exports an object containing settings such as site title, description, social media links, and more.
+Current examples:
 
-### Example Structure of `settings.ts`
+- `public/publications/DT_model.jpg`
+- `public/publications/dt_mt.gif`
+- `public/publications/e-nose.png`
+- `public/publications/poster_llm.png`
 
-```typescript
-export const settings = {
-  siteTitle: "Astro Academia",
-  siteDescription: "A personal academic website built with Astro.",
-  socialLinks: {
-    twitter: "https://twitter.com/yourusername",
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
-  },
-  // Add more settings as needed
-};
+Rules:
+
+- use `type: "image"` for JPG, PNG, and GIF assets
+- use `type: "video"` for video files
+- set `src` to the public path, for example `/publications/my-media.png`
+- add `caption` only when you want text displayed under the media
+
+On the publications page:
+
+- media is rendered only if the publication has a `media` entry
+- clicking media opens an expanded preview dialog
+- clicking the paper title or `Read` opens the publication link in a new tab
+
+## CV and Skills
+
+The CV page reads its content from `src/data/cv.ts`.
+
+Sections currently managed there:
+
+- `experiences`
+- `education`
+- `skills`
+- `publications`
+- `awards`
+
+## Blog
+
+The project still includes a blog collection definition in `src/content.config.ts`, pointing to:
+
+```text
+src/content/BlogPosts/
 ```
 
-To customize your website settings, modify the `settings.ts` file with your desired values. These settings will be used throughout your website to display the appropriate information.
+At the moment, that directory is not populated, so Astro shows warnings during build. The main site works correctly without blog content.
 
-## Where to Find the Blog Collection and Where to Add New Blog Posts
+## Deployment
 
-The blog collection is located in the `src/content/BlogPosts/` directory. Each blog post is a Markdown file with a `.md` extension. The blog posts are named sequentially (e.g., `post1.md`, `post2.md`, etc.).
+This repository is configured as a static Astro site and is intended to be deployed to GitHub Pages at:
 
-### Adding a New Blog Post
-
-1. Navigate to the `src/content/BlogPosts/` directory.
-2. Create a new Markdown file for your blog post (e.g., `post1.md`).
-3. Add the content of your blog post using Markdown syntax. Include frontmatter at the top of the file to define metadata such as title, date, and tags.
-
-### Example Blog Post (`post11.md`)
-
-```markdown
----
-title: "New Blog Post"
-date: "2023-10-01"
-tags: ["research", "astro"]
-excerpt: "Some short paragraphs"
----
-
-# New Blog Post
-
-This is the content of the new blog post. Write your article here using Markdown syntax.
+```text
+https://alessandrostefanone.github.io
 ```
 
-Once you have added the new blog post, it will be automatically included in the blog collection and displayed on the blog page of your website.
+Key site-level configuration lives in `src/settings.ts`, especially:
 
-## Deploy
-The template provides a workflow to deploy the website on Github pages as a static website.
+- `template.website_url`
+- `template.base`
+- `seo`
+
+## Notes
+
+- Publication images on `publications.astro` are currently served as standard image paths from `public/`.
+- Astro may suggest replacing some `<img>` tags with the `Image` component for optimization. That is a possible future improvement, but not required for the site to work.

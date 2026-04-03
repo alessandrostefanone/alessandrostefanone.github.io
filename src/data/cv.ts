@@ -1,3 +1,5 @@
+import type { Publication } from "../types/cv";
+
 export const experiences = [
   {
     company: "XJTU-POLIMI Joint School of Design and Innovation",
@@ -93,7 +95,37 @@ export const skills = [
   },
 ];
 
-export const publications = [
+export const publications: Publication[] = [
+  {
+    title: "Real-Time Monitoring Platform for Commercial Refrigerators Using Digital Twin Aggregates Available to Purchase",
+    authors:
+      "Alessandro Stefanone, Matteo Sala, Roberto Zanetti, Matteo Pirotta, Marco Rossoni, Giorgio Colombo",
+    journal: "In Proceedings of the ASME IMECE 2025, American Society of Mechanical Engineers",
+    time: "2026",
+    link: "https://doi.org/10.1115/IMECE2025-166442",
+    abstract:
+      "Industrial refrigeration systems are essential to preserving the cold chain in sectors such as food and beverage, where equipment failures can result in significant economic losses, increased energy consumption, and product spoilage. However, traditional Supervisory Control and Data Acquisition systems often offer only localized monitoring, limiting fleet-wide visibility and hindering predictive maintenance efforts. This study introduces a scalable and interoperable monitoring platform for commercial refrigeration units, built around Digital Twin aggregates to enable centralized real-time data acquisition and anomaly detection. The system features a multi-tier architecture that integrates OPC UA data exchange protocol for standardized data exchange and utilizes a Long Short-Term Memory (LSTM) encoder-decoder model for semi-supervised anomaly detection. Sensor data is processed to extract time-domain features, and the LSTM model, trained solely on healthy operational data, detects deviations indicative of faults in real time. A functional Digital Twin platform was implemented as a web-based application. Evaluation using a publicly available dataset of industrial refrigeration cycles demonstrates strong performance, achieving an area under the Receiver Operating Characteristic (ROC) curve of 0.95 and an area under the Precision-Recall curve of 0.72 for the fault detection task. While results are promising, current limitations include the detection of only a single generic fault type based exclusively on power consumption data.",
+    status: "Conference Paper",
+    media: [
+      {
+        type: "image",
+        src: "/publications/DT_model.jpg",
+        alt: "Overview of the embedded odor recognition pipeline.",
+        caption: "Overview of the embedded odor recognition pipeline.",
+      }
+    ],
+  },
+  {
+    title: "Sensing Odors: Food Classification Using a Lightweight Transformer",
+    authors:
+      "Marco Rossoni, Leonardo Meacci, Alessandro Stefanone, Giorgio Colombo",
+    journal: "Lecture Notes in Mechanical Engineering. Springer",
+    time: "2026",
+    link: "https://doi.org/10.1007/978-3-032-14953-4_27",
+    abstract:
+      "Food supply chain demands accessible technologies for real-time freshness monitoring; however, current solutions lack efficient olfactory assessment capabilities. This paper presents a lightweight transformer for odor classification system designed for low-power food detection on edge devices. Specifically, the model processes gas resistance signals from a Bosch BME688 sensor. Evaluated through a case study involving coffee powders, a proxy for perishable goods, the proposed approach is rigorously benchmarked against off-the-shelf solutions under identical conditions. Our model improves classification accuracy and F1 score by 8%, while reducing the false positive rate by 9% compared to the baseline. Thus, the architectural simplifications reduce the complexity of the model while preserving temporal pattern recognition. Finally, this approach paves the way for integrating olfactory analysis into circular food infrastructures aimed at minimizing waste.",
+    status: "Conference Paper",
+  },
   {
     title: "Transformer-Based Odor Recognition on E-Nose Platforms",
     authors:
@@ -104,6 +136,14 @@ export const publications = [
     abstract:
       "Transformers have reshaped sequence modelling, yet their value for embedded electronic-nose (e-nose) systems remains largely anecdotal. We present a systematic evaluation of ConvTran, a lightweight self-attention network originally proposed for generic time-series analysis, in the specific context of portable gas sensing. Two open datasets acquired with an eight-sensor Bosch BME688 board underpin the study: CoffeePow-4 (3583 traces across three coffee powders plus ambient air) and the imbalanced Aroma-7 extension that adds three fragranced creams for a total of 4750 traces. ConvTran is benchmarked against five deep-learning baselines (FCN, ResNet, InceptionTime, LSTM-FCN, ALSTM-FCN) and the proprietary Bosch AI-Studio classifier using accuracy, macro-F1 and macro false-positive rate, complemented by on-device memory and latency profiling. On CoffeePow-4, ConvTran attains 96.42% macro-F1 with 1.71 ms inference time while occupying 115 kB of flash. On Aroma-7, it preserves 96.03% macro-F1 at 2 ms and 557 kB, remaining faster than ResNet or InceptionTime, whose accuracy drops by 1.3%. Fully convolutional networks accuracy exceed ConvTran by 0.6% on the four-class task but loses 17% when the number of classes increases, highlighting the advantage of global self-attention for chemically similar odors. These findings demonstrate that an off-the-shelf transformer can satisfy the requirements of embedded devices, delivering state-of-the-art accuracy across balanced and imbalanced odor sets.",
     status: "Journal Article",
+    media: [
+      {
+        type: "image",
+        src: "/publications/e-nose.png",
+        alt: "Overview of the embedded odor recognition pipeline.",
+        caption: "Overview of the embedded odor recognition pipeline.",
+      }
+    ],
   },
   {
     title: "A Framework for Digital Twin Development in Manufacturing",
@@ -115,6 +155,33 @@ export const publications = [
     abstract:
       "This study explores the application of Digital Twin technology in industrial manufacturing, focusing on the integration of OPC UA communication protocol for data exchange between physical machines and their virtual counterparts. The treatise presents a comprehensive framework for developing and deploying Digital Twins in a manufacturing setting. Through the implementation of this framework, significant challenges encountered in Digital Twin development are addressed, including the intricate process of extracting data from OPC UA servers, the necessity for standardized methodologies for descriptive-based Digital Twins, as well as limitations imposed by the frequency of API calls for data retrieval and the complexities associated with managing large and intricate systems. Furthermore, promising avenues for future exploration are proposed, such as the advancement of open-source OPC UA servers and the emergence of web-based Digital Twins as accessible and collaborative platforms for industrial applications. A case study involving a CNC machining center demonstrates the practical utility of the developed framework for monitoring and diagnostics of industrial processes.",
     status: "Conference Paper",
+    media: [
+      {
+        type: "image",
+        src: "/publications/dt_mt.gif",
+        alt: "Animated overview of the digital twin development framework",
+        caption: "Animated overview of the digital twin of a machine tool.",
+      },
+    ],
+  },
+  {
+    title: "Leveraging Large Language Models and Knowledge Graphs for Enhanced Technical Document Classification",
+    authors: "Alessandro Stefanone",
+    journal:
+      "Poster - ASME IMECE 2024, American Society of Mechanical Engineers",
+    time: "2024",
+    link: "https://hdl.handle.net/11311/1279213",
+    abstract:
+      "", 
+    status: "Research Poster",
+    media: [
+      {
+        type: "image",
+        src: "/publications/poster_llm.png",
+        alt: "Poster summarizing the research on LLMs and Knowledge Graphs for technical document classification",
+        caption: "Poster presented at ASME IMECE 2024.",
+      },
+    ],
   },
   {
     title:

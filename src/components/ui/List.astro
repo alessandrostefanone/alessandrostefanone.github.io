@@ -25,7 +25,7 @@ const normalizedItems = listItems.map(item => ({
     normalizedItems.map((item) => (
       <div class="p-6 bg-base-200 rounded-xl text-base-content">
         <h3 class="text-xl font-semibold mb-3">
-          <a href={item.link} class="hover:underline">{item.title}</a>
+          <a href={item.link}>{item.title}</a>
         </h3>
         <ul class="list-disc list-inside mb-3">
           {item.description.map((desc) => (

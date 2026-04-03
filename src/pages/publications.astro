@@ -3,56 +3,272 @@ import Layout from "@/layouts/Layout.astro";
 import { profile } from "@/settings";
 import { publications } from "@/data/cv";
 import { highlightAuthor } from "@/lib/utils";
-import {template} from "@/settings";
 
 const { fullName } = profile;
 
-const ALL_PAPERS = publications; // This will be replaced with dynamic data later
+const ALL_PAPERS = publications;
 ---
 
-<Layout title= {fullName}>
+<Layout title={fullName}>
   <div class="prose max-w-none">
-    <h1 class="text-3xl font-bold mb-8">Publications</h1>
+    <h1 class="mb-8 text-3xl font-bold">Publications</h1>
 
     <div class="space-y-8">
       {
         ALL_PAPERS.map((paper) => (
           <div class="card bg-base-200">
-            <div class="card-body">
+            <div class="card-body gap-0">
               <h2 class="card-title text-xl">
-                <a href={template.base + paper.link} class="hover:text-accent">
-                  {paper.title}
-                </a>
+                {paper.link ? (
+                  <a
+                    href={paper.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    class="hover:text-accent"
+                  >
+                    {paper.title}
+                  </a>
+                ) : (
+                  paper.title
+                )}
               </h2>
-              <p class="text-base mb-2">
+              <p class="mb-1 text-base leading-snug">
                 <span class="font-medium">Authors:</span>{" "}
                 <span set:html={highlightAuthor(paper.authors)} />
               </p>
-              <p class="text-sm mb-3">
-                <span class="italic">{paper.journal}</span> • {paper.time}
+              <p class="mb-2 text-sm leading-snug">
+                <span class="italic">{paper.journal}</span> &middot; {paper.time}
               </p>
-              <p class="text-sm text-base-content/80">{paper.abstract}</p>
-              <div class="card-actions justify-end mt-4">
-                <a href={paper.link} class="btn btn-sm btn-secondary text-secondary-content">
-                  Read
-                </a>
-              </div>
+              {paper.abstract && (
+                <p class="text-sm leading-snug text-base-content/80">{paper.abstract}</p>
+              )}
+              {paper.media?.length ? (
+                <div
+                  class={`grid gap-5 ${
+                    paper.media.length === 1 ? "grid-cols-1" : "grid-cols-1 xl:grid-cols-2"
+                  }`}
+                >
+                  {paper.media.map((item) => (
+                    <figure
+                      class={`group flex flex-col overflow-hidden rounded-xl bg-base-100 shadow-sm ${
+                        paper.media && paper.media.length === 1 ? "mx-auto w-full max-w-5xl" : ""
+                      }`}
+                    >
+                      <button
+                        type="button"
+                        class="relative block w-full text-left"
+                        data-media-trigger
+                        data-media-type={item.type}
+                        data-media-src={item.src}
+                        data-media-alt={item.alt ?? paper.title}
+                        data-media-caption={item.caption ?? ""}
+                        data-media-poster={item.poster ?? ""}
+                        data-media-mime={item.mimeType ?? ""}
+                        aria-label={`Expand media for ${paper.title}`}
+                      >
+                        {item.type === "image" ? (
+                          <img
+                            src={item.src}
+                            alt={item.alt ?? paper.title}
+                            class="h-80 w-full object-contain transition duration-300 group-hover:scale-[1.02] md:h-96"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <video
+                            class="h-80 w-full object-contain transition duration-300 group-hover:scale-[1.02] md:h-96"
+                            preload="metadata"
+                            muted
+                            playsinline
+                            poster={item.poster}
+                            aria-label={item.alt ?? paper.title}
+                          >
+                            <source src={item.src} type={item.mimeType} />
+                          </video>
+                        )}
+                        <span class="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/75 via-black/20 to-transparent px-4 py-3 text-sm text-white">
+                          <span>{item.type === "image" ? "Image" : "Video"}</span>
+                          <span>Click to expand</span>
+                        </span>
+                      </button>
+                      {item.caption && (
+                        <figcaption class="flex min-h-12 items-center justify-center px-4 py-2 text-center text-sm text-base-content/70">
+                          {item.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  ))}
+                </div>
+              ) : null}
+              {paper.link && (
+                <div class="card-actions mt-4 justify-end">
+                  <a
+                    href={paper.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    class="btn btn-sm btn-secondary text-secondary-content"
+                  >
+                    Read
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         ))
       }
     </div>
 
-    <div class="flex justify-center mt-8">
+    <div class="mt-8 flex justify-center">
       <div class="join">
-        <button class="join-item btn btn-sm" disabled>«</button>
+        <button class="join-item btn btn-sm" disabled>&laquo;</button>
         {
           Array.from({ length: Math.ceil(ALL_PAPERS.length / 10) }, (_, i) => (
-        <button class="join-item btn btn-sm">{i + 1}</button>
+            <button class="join-item btn btn-sm">{i + 1}</button>
           ))
         }
-        <button class="join-item btn btn-sm" disabled>»</button>
+        <button class="join-item btn btn-sm" disabled>&raquo;</button>
       </div>
     </div>
   </div>
+
+  <dialog id="publication-media-dialog" class="media-dialog">
+    <div class="media-dialog__surface">
+      <button
+        type="button"
+        class="btn btn-circle btn-sm media-dialog__close"
+        data-media-close
+        aria-label="Close expanded media"
+      >
+        x
+      </button>
+      <div id="publication-media-viewer" class="media-dialog__viewer"></div>
+      <p
+        id="publication-media-caption"
+        class="mt-4 text-center text-sm text-base-content/80"
+      ></p>
+    </div>
+  </dialog>
 </Layout>
+
+<script>
+  const dialog = document.querySelector("#publication-media-dialog");
+  const viewer = document.querySelector("#publication-media-viewer");
+  const caption = document.querySelector("#publication-media-caption");
+  const closeButton = document.querySelector("[data-media-close]");
+  const triggers = document.querySelectorAll("[data-media-trigger]");
+
+  if (
+    dialog instanceof HTMLDialogElement &&
+    viewer instanceof HTMLElement &&
+    caption instanceof HTMLElement &&
+    closeButton instanceof HTMLButtonElement
+  ) {
+    const closeDialog = () => {
+      dialog.close();
+      viewer.replaceChildren();
+      caption.textContent = "";
+    };
+
+    const openDialog = (trigger) => {
+      const type = trigger.dataset.mediaType;
+      const src = trigger.dataset.mediaSrc;
+      const alt = trigger.dataset.mediaAlt ?? "";
+      const mediaCaption = trigger.dataset.mediaCaption ?? "";
+      const poster = trigger.dataset.mediaPoster ?? "";
+      const mimeType = trigger.dataset.mediaMime ?? "";
+
+      if (!type || !src) {
+        return;
+      }
+
+      viewer.replaceChildren();
+
+      if (type === "image") {
+        const image = document.createElement("img");
+        image.src = src;
+        image.alt = alt;
+        image.className = "max-h-[82vh] w-auto max-w-full rounded-xl object-contain";
+        viewer.append(image);
+      } else {
+        const video = document.createElement("video");
+        video.controls = true;
+        video.autoplay = true;
+        video.preload = "metadata";
+        video.className = "max-h-[82vh] w-full rounded-xl bg-black object-contain";
+
+        if (poster) {
+          video.poster = poster;
+        }
+
+        const source = document.createElement("source");
+        source.src = src;
+
+        if (mimeType) {
+          source.type = mimeType;
+        }
+
+        video.append(source);
+        viewer.append(video);
+      }
+
+      caption.textContent = mediaCaption;
+      dialog.showModal();
+    };
+
+    triggers.forEach((trigger) => {
+      if (trigger instanceof HTMLButtonElement) {
+        trigger.addEventListener("click", () => openDialog(trigger));
+      }
+    });
+
+    closeButton.addEventListener("click", closeDialog);
+
+    dialog.addEventListener("click", (event) => {
+      const bounds = dialog.getBoundingClientRect();
+      const clickedOutside =
+        event.clientX < bounds.left ||
+        event.clientX > bounds.right ||
+        event.clientY < bounds.top ||
+        event.clientY > bounds.bottom;
+
+      if (clickedOutside) {
+        closeDialog();
+      }
+    });
+  }
+</script>
+
+<style>
+  .media-dialog {
+    max-width: min(96vw, 90rem);
+    width: 100%;
+    border: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  .media-dialog::backdrop {
+    background: rgb(15 23 42 / 0.82);
+    backdrop-filter: blur(6px);
+  }
+
+  .media-dialog__surface {
+    position: relative;
+    border-radius: 1.25rem;
+    background: hsl(var(--b1));
+    padding: 1rem;
+    box-shadow: 0 24px 80px rgb(15 23 42 / 0.35);
+  }
+
+  .media-dialog__viewer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .media-dialog__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 1;
+  }
+</style>
