@@ -97,7 +97,7 @@ export const skills = [
 
 export const publications: Publication[] = [
   {
-    title: "Real-Time Monitoring Platform for Commercial Refrigerators Using Digital Twin Aggregates Available to Purchase",
+    title: "Real-Time Monitoring Platform for Commercial Refrigerators Using Digital Twin Aggregates",
     authors:
       "Alessandro Stefanone, Matteo Sala, Roberto Zanetti, Matteo Pirotta, Marco Rossoni, Giorgio Colombo",
     journal: "In Proceedings of the ASME IMECE 2025, American Society of Mechanical Engineers",
