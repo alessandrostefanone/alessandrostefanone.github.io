@@ -38,7 +38,7 @@ export const experiences = [
 export const education = [
   {
     school: "Politecnico di Milano",
-    time: "Sep 2023 - Sep 2026",
+    time: "Sep 2023 - Current",
     degree: "Ph.D., Mechanical Engineering",
     location: "Milan, Italy",
     description: "",
@@ -96,6 +96,32 @@ export const skills = [
 ];
 
 export const publications: Publication[] = [
+{
+    title: "Large Language Model-Based Formalization of Engineering Requirements Into Ontology-Constrained Knowledge Graphs",
+    authors:
+      "Alessandro Stefanone, Marco Rossoni, Giorgio Colombo",
+    journal: "Journal of Mechanical Design",
+    time: "2026",
+    link: "https://doi.org/10.1115/1.4072317",
+    abstract:
+      "Requirements engineering plays a central role in mechanical design, yet technical requirements remain predominantly expressed in natural language, limiting traceability, validation, and computational reasoning. This work presents an ontology-constrained pipeline for transforming natural-language engineering requirements into industrial ontologies foundry (IOF)-grounded knowledge graphs enriched with QUDT-based quantitative semantics. The pipeline decomposes text blocks into individual prescriptive clauses, extracts structural slots and constraint atoms through a typed intermediate representation, normalizes quantitative expressions via QUDT unit and quantity-kind grounding, and instantiates IOF-compliant Web Ontology Language (OWL) instance graphs, referred to as assertional boxes (ABoxes). The transformation is implemented as a hybrid neuro-symbolic workflow that combines large language models (LLMs) with typed intermediate representations, rule-based post-processing, and description-logic reasoning. Evaluation on a formula SAE rules corpus, intentionally selected to stress quantitative constraint handling, shows good structural reliability in the evaluated setting, and also highlights important end-to-end limitations. Decomposition accuracy was 63.74%, indicating that clause segmentation remains a major source of propagated error. Conditional on correctly decomposed requirements, slot-level extraction achieved a macro accuracy of 94.50%; however, the stricter row-level criterion requiring all structure and quantity slots to be correct was 69.38%. Quantitative constraint identification reached 97.64% precision and 96.88% recall. Normalization coverage was 98.78%, with residual errors primarily attributable to quantity-kind disambiguation. At the graph level, 93.33% of grounded artifacts passed all ontology-conformance checks. These results indicate that ontology-constrained LLM pipelines can support requirements formalization, while still requiring human oversight for decomposition-sensitive, logically complex, or compliance-critical use cases. The code and data used in this study are openly available in the ontology-req-pipeline GitHub repository.",
+    status: "Conference Paper",
+    media: [
+    ],
+  },
+{
+    title: "Teaching Product Assembly with VR: Advantages, Shortcomings, and Student Perceptions",
+    authors:
+      "Marta Mondellini, Sara Arlati, Alessandro Stefanone, Elena Lucania, Giorgio Colombo, Marcello Urgo, Walter Terkaj",
+    journal: "XR Salento 2026. Lecture Notes in Computer Science",
+    time: "2026",
+    link: "https://doi.org/10.1007/978-3-032-33500-5_22",
+    abstract:
+      "This study investigates the effectiveness and perceived value of virtual reality (VR) in teaching mechanical assembly tasks to engineering students, comparing immersive training with traditional hands-on practice. The experiment took place during a workshop for students involved in the Erasmus+ XREN project, hosted at Politecnico di Milano technical university. Participants were divided into two groups: one completed the assembly task first in VR and then in real life, while the other completed it in the opposite sequence. Students completed a pre-assessment measuring technical expertise, familiarity with VR, and task-related self-efficacy. After the first training session, they reported perceived competence and completed a short knowledge test. Then, at the end of the second session, students evaluated the perceived usefulness, ease of use, presence, engagement, and overall experience quality of the interaction with the virtual application; finally, they indicated their preferred learning modality. At the end of the study, two focus groups explored subjective perceptions, difficulties, and comparative impressions of the two teaching modes. Quantitative results showed moderate performance levels and substantial variability in execution times, despite initially high self-efficacy, across both teaching methods. VR was evaluated as moderately useful and easy to use, with good presence and high engagement. Qualitative findings highlighted VR’s strengths (novelty, repeatability, safe exploration) and limitations (lack of haptics, reduced realism, limited social interaction). Overall, students favored a blended approach, suggesting that VR is most effective as a complementary tool that supports and enhances hands-on learning rather than a replacement for real-world hands-on activities.",
+    status: "Conference Paper",
+    media: [
+    ],
+  },
   {
     title: "Real-Time Monitoring Platform for Commercial Refrigerators Using Digital Twin Aggregates",
     authors:
